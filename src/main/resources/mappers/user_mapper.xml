@@ -3,8 +3,60 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.toyproject.instagram.repository.UserMapper">
-    <insert id="saveUser" parameterType="com.toyproject.instagram.entity.User">
+    <insert id="saveUser"
+            parameterType="com.toyproject.instagram.entity.User">
         insert into user_tb
         values (0, #{email}, #{phone}, #{name}, #{username}, #{password}, #{provider})
     </insert>
+
+    <select id="findUserByPhone"
+            parameterType="String"
+            resultType="com.toyproject.instagram.entity.User">
+        select
+            user_id,
+            email,
+            phone,
+            name,
+            username,
+            password,
+            provider
+        from
+            user_tb
+        where
+            phone = #{phoneOrEmailOrUsername}
+    </select>
+
+    <select id="findUserByEmail"
+            parameterType="String"
+            resultType="com.toyproject.instagram.entity.User">
+        select
+            user_id,
+            email,
+            phone,
+            name,
+            username,
+            password,
+            provider
+        from
+            user_tb
+        where
+            email = #{phoneOrEmailOrUsername}
+    </select>
+
+    <select id="findUserByUsername"
+            parameterType="String"
+            resultType="com.toyproject.instagram.entity.User">
+        select
+            user_id,
+            email,
+            phone,
+            name,
+            username,
+            password,
+            provider
+        from
+            user_tb
+        where
+            username = #{phoneOrEmailOrUsername}
+    </select>
 </mapper>
