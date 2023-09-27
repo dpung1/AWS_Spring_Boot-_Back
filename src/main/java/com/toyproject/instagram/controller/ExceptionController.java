@@ -1,5 +1,6 @@
 package com.toyproject.instagram.controller;
 
+import com.toyproject.instagram.exception.JwtException;
 import com.toyproject.instagram.exception.SignupException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -13,4 +14,8 @@ public class ExceptionController {
         return ResponseEntity.badRequest().body(signupException.getErrorMap());
     }
 
+    @ExceptionHandler(JwtException.class)
+    public ResponseEntity<?> JwtExceptionHandle(JwtException jwtException) {
+        return ResponseEntity.badRequest().body(jwtException.getMessage());
+    }
 }

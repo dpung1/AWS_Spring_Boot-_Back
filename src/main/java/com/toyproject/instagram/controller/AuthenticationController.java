@@ -40,7 +40,14 @@ public class AuthenticationController {
 
     @PostMapping("/login")
     public ResponseEntity<?> signin(@RequestBody SigninReqDto signinReqDto) {
-        userService.signinUser(signinReqDto);
-        return ResponseEntity.ok(null);
+
+        String accessToken = userService.signinUser(signinReqDto);
+
+        return ResponseEntity.ok().body(accessToken);
+    }
+
+    @GetMapping("/authenticate")
+    public ResponseEntity<?> authenticate(@RequestHeader(value = "Authorization") String token) {
+        return ResponseEntity.ok(userService.authenticate(token));
     }
 }
