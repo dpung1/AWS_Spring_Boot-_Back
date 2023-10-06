@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.toyproject.instagram.repository.FeedMapper">
+
+    <insert id="saveFeed"
+            parameterType="com.toyproject.instagram.entity.Feed"
+            keyProperty="feedId"
+            useGeneratedKeys="true">
+
+        insert into feed_tb
+        values(0, #{content}, #{username}, now())
+
+    </insert>
+
+    <insert id="saveFeedImgList" parameterType="list">
+
+        insert into feed_img_tb
+        values
+        <foreach collection="list" item="feedImg" separator=",">
+            (0, #{feedImg.feedId}, #{feedImg.originFileName}, #{feedImg.saveFileName})
+        </foreach>
+
+    </insert>
+
+</mapper>
